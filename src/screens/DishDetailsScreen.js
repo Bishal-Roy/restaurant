@@ -1,14 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-const DishDetailsScreen = () => {
+const DishDetailsScreen = (props) => {
+  const dish = props.route.params.dish;
   return (
     <View>
-      <Text>Dish</Text>
+      <Image source={{ uri: dish.image }} style={styles.image} />
+      <Text style={styles.description}>{dish.description}</Text>
     </View>
   );
 };
 
 export default DishDetailsScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  image: {
+    width: '100%',
+    height: 300,
+  },
+  description: {
+    color: '#6e6969',
+  },
+});

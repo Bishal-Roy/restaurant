@@ -1,32 +1,36 @@
-import React from 'react';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Platform,
-} from 'react-native';
-import Constants from 'expo-constants';
+import React, { useEffect } from 'react';
+import { FlatList, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import MenuItem from '../components/MenuItem';
+import { getDishes } from '../redux/action';
 
 const MenuScreen = (props) => {
+  const dishes = useSelector((state) => state.dishes);
+  // console.log(dishes);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getDishes());
+  }, []);
+
   return (
-    <SafeAreaView>
-      <View>
-        <Text>Menu</Text>
-        <Button
-          title='press'
-          onPress={() => props.navigation.navigate('Dish Details')}
-        />
-      </View>
-    </SafeAreaView>
+    <View>
+      <FlatList
+        data={dishes}
+        renderItem={({ item }) => (
+          <MenuItem
+            item={item}
+            selectDish={() =>
+              props.navigation.navigate('Dish Details', {
+                dish: item,
+              })
+            }
+          />
+        )}
+        keyExtractor={(item) => item.id.toString()}
+      />
+    </View>
   );
 };
 
 export default MenuScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    // paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight,
-  },
-});

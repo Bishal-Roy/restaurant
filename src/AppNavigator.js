@@ -4,6 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import MenuScreen from './screens/MenuScreen';
 import DishDetailsScreen from './screens/DishDetailsScreen';
+import Icon from './components/Icon';
 
 const AppNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -11,9 +12,24 @@ const AppNavigator = () => {
 
   const MenuStack = () => {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerRight: () => <Icon />,
+          headerStyle: {
+            backgroundColor: '#F53850',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
         <Stack.Screen name='Menu' component={MenuScreen} />
-        <Stack.Screen name='Dish Details' component={DishDetailsScreen} />
+        <Stack.Screen
+          name='Dish Details'
+          component={DishDetailsScreen}
+          options={({ route }) => ({ title: route.params.dish.name })}
+        />
       </Stack.Navigator>
     );
   };
