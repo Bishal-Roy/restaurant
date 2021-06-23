@@ -18,3 +18,17 @@ export const loadDishes = (dishes) => {
     payload: dishes,
   };
 };
+
+export const addFavouriteDish = (dish) => {
+  return {
+    type: constant.ADD_FAVOURITE_DISH,
+    payload: dish,
+  };
+};
+
+export const removeFavouriteDish = (dish) => {
+  return {
+    type: constant.REMOVE_FAVOURITE_DISH,
+    payload: dish,
+  };
+};
